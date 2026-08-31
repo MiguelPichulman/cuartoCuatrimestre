@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 
 public class Producto extends Base{
