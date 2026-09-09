@@ -10,7 +10,7 @@ import com.practicaconspring.trabajopractico1.repositories.ProductoRepository;
 import com.practicaconspring.trabajopractico1.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class PedidoService {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
         Pedido pedido = new Pedido();
-        pedido.setFecha(LocalDate.now());
+        pedido.setFecha(LocalDateTime.now());
         pedido.setEstado(Estado.PENDIENTE);
         pedido.setFormaPago(formaPago);
         pedido.setUsuario(usuario);

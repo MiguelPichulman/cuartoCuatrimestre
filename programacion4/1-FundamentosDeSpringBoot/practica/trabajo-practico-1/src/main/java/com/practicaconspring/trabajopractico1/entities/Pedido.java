@@ -2,26 +2,24 @@ package com.practicaconspring.trabajopractico1.entities;
 
 import com.practicaconspring.trabajopractico1.enums.Estado;
 import com.practicaconspring.trabajopractico1.enums.FormaPago;
-// El import de Usuario del mismo paquete no es estrictamente necesario, pero no hace daño
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity; // ¡Agregamos Entity!
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor; // ¡Agregamos Lombok!
-import lombok.Data; // ¡Agregamos Lombok!
-import lombok.NoArgsConstructor; // ¡Agregamos Lombok!
 
-import java.time.LocalDate;
+import com.practicaconspring.trabajopractico1.interfaces.Calculable;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity // Fundamental para que H2 cree la tabla
-@Data // Genera todos los getters y setters automáticamente en memoria
+@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pedido extends Base {
+public class Pedido extends Base implements Calculable {
 
-    private LocalDate fecha;
+    private LocalDateTime fecha;
     private Estado estado;
     private Double total;
     private FormaPago formaPago;
@@ -31,6 +29,54 @@ public class Pedido extends Base {
     private Usuario usuario;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetallePedido> detallePedido;
+    private List<DetallePedido> detallePedido = new ArrayList<>();
 
+    @Override
+    public void calcularTotal() {
+        if (this.detallePedido != null) {
+            this.total = this.detallePedido.stream()
+                    .mapToDouble(DetallePedido::getSubtotal)
+                    .sum();
+        } else {
+            this.total = 0.0;
+        }
+    }
+
+    public void addDetallePedido(int cantidad, Producto producto) {
+        DetallePedido detalleExistente = findeDetallePedidoByProducto(producto);
+
+        if (detalleExistente != null) {
+            detalleExistente.setCantidad(detalleExistente.getCantidad() + cantidad);
+            detalleExistente.setSubtotal(detalleExistente.getCantidad() * producto.getPrecio());
+        } else {
+
+            DetallePedido nuevoDetalle = new DetallePedido();
+            nuevoDetalle.setCantidad(cantidad);
+            nuevoDetalle.setSubtotal(cantidad * producto.getPrecio());
+            nuevoDetalle.setProducto(producto);
+            nuevoDetalle.setPedido(this);
+            this.detallePedido.add(nuevoDetalle);
+        }
+
+        this.calcularTotal();
+    }
+
+    public DetallePedido findeDetallePedidoByProducto(Producto producto) {
+        if (this.detallePedido == null) return null;
+
+        return this.detallePedido.stream()
+                .filter(dp -> dp.getProducto().getId().equals(producto.getId()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void deleteDetallePedidoByProducto(Producto producto) {
+        DetallePedido detalleAEliminar = findeDetallePedidoByProducto(producto);
+
+        if (detalleAEliminar != null) {
+            this.detallePedido.remove(detalleAEliminar);
+            detalleAEliminar.setPedido(null); // Rompemos la relación bidireccional
+            this.calcularTotal(); // Recalculamos el total del pedido
+        }
+    }
 }

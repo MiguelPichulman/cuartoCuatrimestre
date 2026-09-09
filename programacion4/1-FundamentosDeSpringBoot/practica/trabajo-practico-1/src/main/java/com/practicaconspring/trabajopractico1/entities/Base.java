@@ -8,7 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @MappedSuperclass
 @Data
 @NoArgsConstructor
@@ -21,5 +22,5 @@ public class Base {
     private Long id;
 
     private boolean eliminado;
-    private LocalDate eliminatedAt;
+    private LocalDateTime createdAt;
 }

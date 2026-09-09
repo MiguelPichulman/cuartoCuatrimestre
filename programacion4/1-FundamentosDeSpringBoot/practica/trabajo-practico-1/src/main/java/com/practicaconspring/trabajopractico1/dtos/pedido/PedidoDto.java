@@ -6,13 +6,13 @@ import com.practicaconspring.trabajopractico1.entities.Pedido;
 import com.practicaconspring.trabajopractico1.enums.Estado;
 import com.practicaconspring.trabajopractico1.enums.FormaPago;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public record PedidoDto(
         Long id,
-        LocalDate fecha,
+        LocalDateTime fecha,
         Estado estado,
         Double total,
         FormaPago formaPago,
