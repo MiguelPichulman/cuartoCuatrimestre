@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "nombre": "Notebook",
+    "precio": 1000,
+    "descripcion": "Laptop 16GB RAM",
+    "stock": 15,
+    "imagen": "pc.jpg",
+    "disponible": true,
+    "categoriaDto": {
+      "id": 1,
+      "nombre": "Tecnología",
+      "descripcion": "Electrónica y computación"
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "Smartphone",
+    "precio": 500,
+    "descripcion": "Celular 128GB",
+    "stock": 30,
+    "imagen": "cel.jpg",
+    "disponible": true,
+    "categoriaDto": {
+      "id": 1,
+      "nombre": "Tecnología",
+      "descripcion": "Electrónica y computación"
+    }
+  },
+  {
+    "id": 3,
+    "nombre": "Auriculares",
+    "precio": 100,
+    "descripcion": "Bluetooth",
+    "stock": 50,
+    "imagen": "aur.jpg",
+    "disponible": true,
+    "categoriaDto": {
+      "id": 1,
+      "nombre": "Tecnología",
+      "descripcion": "Electrónica y computación"
+    }
+  },
+  {
+    "id": 4,
+    "nombre": "Sillón",
+    "precio": 300,
+    "descripcion": "3 Cuerpos",
+    "stock": 5,
+    "imagen": "sillon.jpg",
+    "disponible": true,
+    "categoriaDto": {
+      "id": 2,
+      "nombre": "Hogar",
+      "descripcion": "Muebles y decoración"
+    }
+  },
+  {
+    "id": 5,
+    "nombre": "Mesa de Comedor",
+    "precio": 150,
+    "descripcion": "Madera roble",
+    "stock": 10,
+    "imagen": "mesa.jpg",
+    "disponible": true,
+    "categoriaDto": {
+      "id": 2,
+      "nombre": "Hogar",
+      "descripcion": "Muebles y decoración"
+    }
+  },
+  {
+    "id": 6,
+    "nombre": "Lámpara",
+    "precio": 40,
+    "descripcion": "Lámpara de pie LED",
+    "stock": 20,
+    "imagen": "lamp.jpg",
+    "disponible": true,
+    "categoriaDto": {
+      "id": 2,
+      "nombre": "Hogar",
+      "descripcion": "Muebles y decoración"
+    }
+  },
+  {
+    "id": 7,
+    "nombre": "Zapatillas",
+    "precio": 80,
+    "descripcion": "Deportivas talle 42",
+    "stock": 25,
+    "imagen": "zap.jpg",
+    "disponible": true,
+    "categoriaDto": {
+      "id": 3,
+      "nombre": "Indumentaria",
+      "descripcion": "Ropa y accesorios"
+    }
+  },
+  {
+    "id": 8,
+    "nombre": "Campera",
+    "precio": 120,
+    "descripcion": "Campera de cuero",
+    "stock": 15,
+    "imagen": "camp.jpg",
+    "disponible": true,
+    "categoriaDto": {
+      "id": 3,
+      "nombre": "Indumentaria",
+      "descripcion": "Ropa y accesorios"
+    }
+  },
+  {
+    "id": 9,
+    "nombre": "Remera",
+    "precio": 25,
+    "descripcion": "Algodón lisa",
+    "stock": 100,
+    "imagen": "rem.jpg",
+    "disponible": true,
+    "categoriaDto": {
+      "id": 3,
+      "nombre": "Indumentaria",
+      "descripcion": "Ropa y accesorios"
+    }
+  },
+  {
+    "id": 10,
+    "nombre": "Pantalón",
+    "precio": 45,
+    "descripcion": "Jean azul",
+    "stock": 60,
+    "imagen": "jean.jpg",
+    "disponible": true,
+    "categoriaDto": {
+      "id": 3,
+      "nombre": "Indumentaria",
+      "descripcion": "Ropa y accesorios"
+    }
+  }
+]

@@ -54,4 +54,10 @@ public class PedidoService {
 
         return PedidoDto.toDto(pedidoGuardado);
     }
+
+    public List<PedidoDto> listarPedidos() {
+        return pedidoRepository.findAll().stream()
+                .map(PedidoDto::toDto)
+                .toList();
+    }
 }
