@@ -6,7 +6,8 @@ from catalogo import (
     ProductoPorPeso,
     ProductoCombo,
     exportar_catalogo,
-    ErrorDeDominio
+    ErrorDeDominio,
+    Exportable
 )
 from libreria_externa import FichaPuntoDeVenta
 
@@ -77,8 +78,10 @@ def ejecutar_demo() -> None:
     ficha_externa = FichaPuntoDeVenta("POS-9988", "Caja Registradora Central")
     
     # Lista polimórfica con los 4 productos + combo + ficha externa
-    items_exportables = [prod_agua, prod_queso, prod_fideos, prod_pan, prod_combo, ficha_externa]
-    
+        
+    items_exportables: list[Exportable] = [prod_agua, prod_queso, prod_fideos, prod_pan, prod_combo, ficha_externa]
+
+
     print("--- EXPORTANDO CATÁLOGO COMPLETO AL PUNTO DE VENTA ---")
     resultados_exportacion = exportar_catalogo(items_exportables)
     for linea in resultados_exportacion:
@@ -93,7 +96,7 @@ def ejecutar_demo() -> None:
             def precio_final(self, cantidad: float) -> float:
                 pass
         
-        _ = ProductoIncompleto()
+        _ = ProductoIncompleto() #type: ignore[abstract]
     except TypeError as e:
         print(f"Falla temprana capturada correctamente al construir: {e}")
 
