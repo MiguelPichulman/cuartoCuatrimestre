@@ -20,7 +20,7 @@ Sistema de gestión de catálogo en memoria para el comercio "Food Store", desar
   * Contiene el diagrama de clases final modelado en notación Mermaid, reflejando fielmente la estructura, atributos, relaciones y multiplicidades del código
 
 * **`link_video.txt`** 
-  * *ACA VA EL LINK DEL VIDEO
+  * https://drive.google.com/file/d/1JxEPSV9zF9ZKj639ZtjAxbxtkzWn5yOx/view?usp=drive_link
 
 ---
 

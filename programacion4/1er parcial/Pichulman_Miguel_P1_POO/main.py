@@ -10,21 +10,21 @@ from catalogo import (
     Exportable
 )
 from libreria_externa import FichaPuntoDeVenta
-
+#--------unidades y categorias
 def ejecutar_demo() -> None:
     print("=== CATALOGO FOOD STORE ===\n")
 
-    # 1. Crear unidades de medida (Inmutables con @dataclass frozen=True)
+    #----------- unidades de medida (@dataclass frozen=True)
     u_unidad = UnidadMedida("Unidad", "u", "unidad")
     u_masa = UnidadMedida("Kilogramo", "kg", "masa")
 
-    # 2. Crear categorías
+    #----------- categorías
     c_bebidas = Categoria("Bebidas", "Bebidas y refrescos")
     c_fiambreria = Categoria("Fiambrería", "Fiambres y picadas")
-    c_almacen = Categoria("Almacén", "Productos secos de almacén")
+    c_almacen = Categoria("Almacen", "Productos secos de almacen")
     c_combos = Categoria("Promociones", "Combos especiales")
 
-    # 3. Instanciar al menos 4 productos independientes (sin contar los componentes del combo)
+    #-------------- instanciar al menos 4 productos independientes
     prod_agua = ProductoSimple(
         nombre="Agua Mineral 500ml",
         precio_base=1200.0,
@@ -65,29 +65,29 @@ def ejecutar_demo() -> None:
         categoria_principal=c_combos
     )
 
-    # 4. Demostrar operaciones y cálculos
+    # operaciones y calculos
     prod_agua.clasificar_en(Categoria("Destacados"), es_principal=False)
-    print(f"Producto 1: {prod_agua.nombre} | Categoría Principal: {prod_agua.categoria_principal().nombre}")
+    print(f"Producto 1: {prod_agua.nombre} | Categoria Principal: {prod_agua.categoria_principal().nombre}")
     print(f"Precio Publicado: {prod_agua.precio_publicado} | Disponible: {prod_agua.disponible}")
     
     print(f"Precio final para 3 unidades de agua: $ {prod_agua.precio_final(3):.2f}")
     print(f"Precio final para 0.750 kg de queso: $ {prod_queso.precio_final(0.750):.2f}")
     print(f"Precio final para 2 combos: $ {prod_combo.precio_final(2):.2f}\n")
 
-    # 5. Integración con FichaPuntoDeVenta (Exportable Protocol)
+    # integracion con FichaPuntoDeVenta (Exportable Protocol)
     ficha_externa = FichaPuntoDeVenta("POS-9988", "Caja Registradora Central")
     
-    # Lista polimórfica con los 4 productos + combo + ficha externa
+    # lista polimorfica con los 4 productos + combo + ficha externa
         
     items_exportables: list[Exportable] = [prod_agua, prod_queso, prod_fideos, prod_pan, prod_combo, ficha_externa]
 
 
-    print("--- EXPORTANDO CATÁLOGO COMPLETO AL PUNTO DE VENTA ---")
+    print("--- EXPORTANDO CATALOGO COMPLETO AL PUNTO DE VENTA ---")
     resultados_exportacion = exportar_catalogo(items_exportables)
     for linea in resultados_exportacion:
         print(linea)
 
-    # 6. Demostrar falla temprana (TypeError al intentar instanciar un ABC incompleto)
+    # demostrar falla temprana (TypeError al intentar instanciar un ABC incompleto)
     print("\n--- DEMOSTRANDO FALLA TEMPRANA (ABC) ---")
     try:
         from abc import ABC, abstractmethod

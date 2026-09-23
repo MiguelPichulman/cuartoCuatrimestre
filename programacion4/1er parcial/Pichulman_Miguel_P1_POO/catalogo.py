@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 from typing import Final, Protocol
-
+# definicion de excepciones
 class ErrorDeDominio(ValueError):
-    """Excepción de dominio para reglas de negocio del catálogo (hereda de ValueError)."""
+    """Excepcion de dominio para reglas de negocio del catalogo (hereda de ValueError)."""
     pass
-
-@dataclass(frozen=True)
+# unidad medida inmutable
+@dataclass(frozen=True) 
 class UnidadMedida:
     """Objeto de datos inmutable para las unidades de venta (kg, g, L, u)."""
     nombre: str
@@ -15,7 +15,7 @@ class UnidadMedida:
 
 
 class Categoria:
-    """Agrupa productos del catálogo. La descripción es opcional."""
+    """Agrupa productos del catalogo. La descripcion es opcional."""
     def __init__(self, nombre: str, descripcion: str = "") -> None:
         if not nombre or not nombre.strip():
             raise ErrorDeDominio("El nombre de la categoría no puede estar vacío.")
@@ -32,7 +32,7 @@ class Categoria:
 
 
 class ProductoCategoria:
-    """Vínculo de composición entre un Producto y una Categoria."""
+    """Vinculo de composicion entre un Producto y una Categoria."""
     def __init__(self, categoria: Categoria, es_principal: bool) -> None:
         self._categoria: Categoria = categoria
         self._es_principal: bool = es_principal
@@ -48,18 +48,18 @@ class ProductoCategoria:
     def _marcar_principal(self, valor: bool) -> None:
         self._es_principal = valor
 
-
+# -----clase abstracta
 class Producto(ABC):
-    """Clase abstracta base del catálogo."""
+    """Clase abstracta base del catalogo.""" 
     def __init__(self, nombre: str, precio_base: float, stock_cantidad: float, unidad_venta: UnidadMedida | None, categoria_principal: Categoria) -> None:
         if not nombre or not nombre.strip():
-            raise ErrorDeDominio("El nombre del producto no puede estar vacío.")
+            raise ErrorDeDominio("El nombre del producto no puede estar vacio.")
         if precio_base < 0:
             raise ErrorDeDominio("El precio base no puede ser negativo.")
         if stock_cantidad < 0:
             raise ErrorDeDominio("El stock no puede ser negativo.")
         if categoria_principal is None:
-            raise ErrorDeDominio("Todo producto debe tener una categoría principal obligatoria.")
+            raise ErrorDeDominio("Todo producto debe tener una categoria principal obligatoria.")
 
         self._nombre: str = nombre
         self._precio_base: float = precio_base
@@ -68,7 +68,7 @@ class Producto(ABC):
         self._unidad_venta: UnidadMedida | None = unidad_venta
         self._orden_vidriera: int | None = None
         
-        # Composición: El producto fabrica su primer vínculo principal
+#--------------------------------------------------------------------- Composicion
         self._clasificaciones: list[ProductoCategoria] = []
         self._clasificaciones.append(ProductoCategoria(categoria_principal, es_principal=True))
 
@@ -112,7 +112,7 @@ class Producto(ABC):
     def clasificar_en(self, categoria: Categoria, es_principal: bool = False) -> None:
         for clasificacion in self._clasificaciones:
             if clasificacion.categoria.nombre == categoria.nombre:
-                raise ErrorDeDominio(f"El producto ya se encuentra clasificado en la categoría '{categoria.nombre}'.")
+                raise ErrorDeDominio(f"El producto ya se encuentra clasificado en la categoria '{categoria.nombre}'.")
 
         if es_principal:
             for clasificacion in self._clasificaciones:
@@ -128,7 +128,7 @@ class Producto(ABC):
         for clasificacion in self._clasificaciones:
             if clasificacion.es_principal:
                 return clasificacion.categoria
-        raise ErrorDeDominio("El producto no tiene una categoría principal válida.")
+        raise ErrorDeDominio("El producto no tiene una categoria principal valida.")
 
     @abstractmethod
     def precio_final(self, cantidad: float) -> float:
@@ -155,7 +155,7 @@ class ProductoPorPeso(Producto):
         return round(self._precio_base * float(cantidad), 2)
 
 
-class ProductoCombo(Producto):
+class ProductoCombo(Producto):#------------------------------------------agregacion
     """Agrupa entre 2 y N productos ya construidos y aplica un descuento sobre la suma."""
     def __init__(self, nombre: str, componentes: list[Producto], descuento: float, categoria_principal: Categoria) -> None:
         if len(componentes) < 2:
@@ -190,5 +190,5 @@ class Exportable(Protocol):
 
 
 def exportar_catalogo(items: list[Exportable]) -> list[str]:
-    """Recibe productos y fichas de punto de venta en una misma lista polimórfica."""
+    """Recibe productos y fichas de punto de venta en una misma lista polimorfica."""
     return [item.exportar() for item in items]
