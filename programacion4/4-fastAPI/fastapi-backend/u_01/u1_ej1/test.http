@@ -1,0 +1,7 @@
+###primer ejemplo
+curl -X 'GET' \
+  'http://127.0.0.1:8000/' \
+  -H 'accept: */*'
+###Otra opcion de probar segundo ejemplo
+GET http://127.0.0.1:8000/ping
+Accept: application/json
