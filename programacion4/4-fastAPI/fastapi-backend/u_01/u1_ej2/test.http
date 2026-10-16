@@ -1,0 +1,4 @@
+###primer ejemplo
+curl -X 'GET' \
+  'http://127.0.0.1:8000/items/3' \
+  -H 'accept: */*'
