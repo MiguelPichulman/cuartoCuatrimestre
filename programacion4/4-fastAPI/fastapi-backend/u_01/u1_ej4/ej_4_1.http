@@ -1,0 +1,7 @@
+### obtener todos los items (por defecto)
+GET http://127.0.0.1:8000/items/
+Accept: application/json
+
+### obtener items con parametros (query parameters)
+GET http://127.0.0.1:8000/items/?skip=0&limit=2
+Accept: application/json

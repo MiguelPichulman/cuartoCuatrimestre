@@ -1,0 +1,4 @@
+### Obtener model AlexNet (valor invalido)
+# Funciona porque "alexnet" esta definido en la clase ModelName
+GET http://127.0.0.1:8000/models/abc
+Accept: application/json

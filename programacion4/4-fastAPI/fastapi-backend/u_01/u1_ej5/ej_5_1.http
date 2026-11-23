@@ -1,0 +1,10 @@
+### solicitud POST com Request Body
+POST http://127.0.0.1/127.0.0.1:8000/items/
+Content-Type: application/json
+
+{
+    "name":"laptop",
+    "description":"una computadora potente",
+    "price":1200.50,
+    "tax": 120.00
+}
